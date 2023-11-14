@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- INSDC Minimum requeriments for Common Sequence Read Archive resource Analysis (SRZ/ERZ/DRZ) object XML specification -->
+<!-- version:1.0.0 -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="SRA.common.xsd"/> # Change to SRA.MR
+
+    <xs:complexType name="AnalysisFileType">
+        <xs:sequence>
+            <xs:element name="TITLE" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The title of the analysis.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DESCRIPTION" type="xs:string" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>A detailed description of the analysis.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ANALYSIS_TYPE" type="xs:string" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The type of analysis performed, such as base modification, genome map, genome graph, or binned metagenome.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="STUDY_REF" type="xs:string" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Reference to the study this analysis is a part of.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="filename" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>The name of the file associated with the analysis.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="filetype" use="required">
+
+            <xs:simpleType name="BaseModificationFileType">
+                <xs:annotation>
+                    <xs:documentation>File types for base modification (PacBio) analysis.</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="tsv"/>
+                    <xs:enumeration value="csv"/>
+                    <xs:enumeration value="gff"/>
+                </xs:restriction>
+            </xs:simpleType>
+
+            <xs:simpleType name="GenomeMapFileType">
+                <xs:annotation>
+                    <xs:documentation>File types for genome map (Bionano) analysis.</xs:documentation>
+                </xs:annotation>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="bnx"/>
+                        <xs:enumeration value="cmap"/>
+                        <xs:enumeration value="xmap"/>
+                    </xs:restriction>
+            </xs:simpleType>
+
+            <xs:simpleType name="GenomeGraphsFileType">
+                <xs:annotation>
+                    <xs:documentation>File types for genome graphs (assembly graph) analysis.</xs:documentation>
+                </xs:annotation>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="gfa"/>
+                    </xs:restriction>
+            </xs:simpleType>
+
+            <xs:simpleType name="BinnedMetagenomeFileType">
+                <xs:annotation>
+                    <xs:documentation>File types for binned metagenome analysis.</xs:documentation>
+                </xs:annotation>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="fasta"/>
+                    </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="checksum" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>The checksum for the file to verify its integrity.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>
